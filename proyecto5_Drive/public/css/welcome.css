@@ -1,0 +1,140 @@
+/* Configuración básica */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo de la página */
+body {
+    background: linear-gradient(135deg, #d4e0f0, #f1f3f8);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* Encabezado (Header) */
+header {
+    width: 100%;
+    background-color: #2d3e50;
+    color: #fff;
+    padding: 1rem 2rem; /* Ajuste de padding para el ancho completo */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para separación */
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #a1c4fd;
+}
+
+/* Contenedor principal */
+main {
+    flex: 1;
+    padding: 2rem;
+    width: 100%;
+}
+
+/* Estilos del formulario de subida */
+form {
+    display: flex;
+    gap: 10px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 1rem 0;
+}
+
+/* Botón "Seleccionar archivo" */
+form input[type="file"] {
+    padding: 8px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    cursor: pointer;
+}
+
+form input[type="submit"] {
+    padding: 8px 16px;
+    background-color: #2d5b97;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #1d3e73;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+table th {
+    background-color: #3a4a5e; /* Fondo oscuro para mejor contraste */
+    color: #ffffff; /* Texto blanco para legibilidad */
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+table td, table th {
+    padding: 12px;
+    border-bottom: 1px solid #d1d9e6;
+    color: #ffffff;
+}
+
+tr:nth-child(even) td {
+    background-color: #edf2f7;
+}
+
+/* Enlaces dentro de la tabla */
+table td a {
+    color: #2d5b97;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+table td a:hover {
+    color: #1d3e73;
+    text-decoration: underline;
+}
+
+/* Ícono de eliminar */
+table td svg {
+    width: 24px;
+    height: 24px;
+    fill: #ff5252;
+    cursor: pointer;
+    transition: fill 0.3s;
+}
+
+table td svg:hover {
+    fill: #ff1744;
+}

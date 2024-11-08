@@ -1,0 +1,113 @@
+/* Configuración básica */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo de la página */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f7f8fa 25%, #e2e8f0 75%);
+    color: #333;
+}
+
+/* Contenedor del formulario */
+form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilos de los campos de entrada */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #cbd5e0;
+    border-radius: 10px;
+    outline: none;
+    background: #f1f5f9;
+    transition: border-color 0.3s ease;
+}
+
+/* Efecto de foco en los campos de entrada */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4a90e2;
+    background: #e3f2fd;
+}
+
+/* Botón de envío */
+input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Efectos del botón de envío */
+input[type="submit"]:hover {
+    background: #357abd;
+}
+
+input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Estilos del enlace de registro */
+form p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+form p a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+form p a:hover {
+    color: #357abd;
+    text-decoration: underline;
+}
+
+/* Placeholders de entrada */
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+/* Animación para entrada del formulario */
+form {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,134 @@
+/* Configuración básica */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo de la página */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f7f8fa 25%, #e2e8f0 75%);
+    color: #333;
+}
+
+/* Contenedor principal */
+div {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Título */
+h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #e74c3c;
+    background-color: #fdecea;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+}
+
+/* Estilos de los campos del formulario */
+form div {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    background: #f1f5f9;
+    transition: border-color 0.3s ease;
+}
+
+/* Efecto de foco en los campos de entrada */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4a90e2;
+    background: #e3f2fd;
+}
+
+/* Botón de registro */
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+}
+
+/* Efectos del botón de registro */
+button[type="submit"]:hover {
+    background: #357abd;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Enlace de inicio de sesión */
+p {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+p a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+p a:hover {
+    color: #357abd;
+    text-decoration: underline;
+}
+
+/* Animación de entrada */
+div {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
