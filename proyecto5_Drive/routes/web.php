@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FicheroController;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Fichero;
 use App\Models\User;
@@ -12,37 +13,20 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('welcome')
-        ->with('ficheros', Fichero::all());
-});
-
-//proteger grupo de rutas solo si estas autorizado
-Route::middleware("auth")->group(function(){
-
-    Route::post('/upload', function(Request $request){
-        $fichero = new Fichero();
-        $fichero->path = $request->file('uploaded_file')->store();
-        $fichero->name = $request->file('uploaded_file')->getClientOriginalName();
-        $fichero->user_id = Auth::id();
-        $fichero->save();
-        return redirect('/');
-    })->can('upload', Fichero::class);
-    
-    
-    Route::get('/download/{file}', function(Fichero $file){
-        return Storage::download($file->path, $file->name);
-    });
-    
-    Route::get('/delete/{file}', function(Fichero $file){
-    
-        Storage::delete($file->path);
-        Fichero::destroy($file->id);
-    
-        return redirect('/');
-    })->can('delete','file');
+        ->with('ficheros',Fichero::all());
 });
 
 
+//rutas para los Ficheros
+Route::middleware("auth")->group(function() {
+    Route::post('/upload', [FicheroController::class, 'upload'])
+        ->can('upload', App\Models\Fichero::class);
 
+    Route::get('/download/{file}', [FicheroController::class, 'download']);
+
+    Route::get('/delete/{file}', [FicheroController::class, 'delete'])
+        ->can('delete', 'file');
+});
 
 
 //login
@@ -78,11 +62,6 @@ Route::get('/logout', function(Request $request){
     return redirect('/');
 });
 
-
-
-
-
-
 //registro
 Route::get('/register', function () {
     return view('register');
@@ -100,3 +79,4 @@ Route::post('/register', function(RegisterRequest $request) {
 
     return redirect('/')->with('status', 'Registro exitoso. Ahora puedes iniciar sesión.');
 });
+

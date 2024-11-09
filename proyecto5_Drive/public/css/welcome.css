@@ -108,6 +108,9 @@ table td, table th {
     border-bottom: 1px solid #d1d9e6;
     color: #ffffff;
 }
+table td{
+    color: #333;
+}
 
 tr:nth-child(even) td {
     background-color: #edf2f7;

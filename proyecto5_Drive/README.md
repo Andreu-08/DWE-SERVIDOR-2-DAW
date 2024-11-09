@@ -1,66 +1,39 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📁 Proyecto5_Drive
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Proyecto5_Drive** es una aplicación sencilla de almacenamiento de archivos, diseñada para que puedas gestionar y compartir tus documentos en línea de forma rápida y organizada. Aquí puedes subir, descargar, organizar y hasta compartir enlaces para que otros vean tus archivos. Todo, en una interfaz clara y funcional con ayuda de **Laravel** y **Bulma CSS**.
 
-## About Laravel
+## Funcionalidades Principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Subida y descarga de archivos**: Guarda tus archivos y recupéralos fácilmente cuando los necesites.
+- **Organización inteligente**: Clasifica tus archivos en públicos o privados. Además, marca los que más usas como "Favoritos" para encontrarlos rápidamente.
+- **Compartición simplificada**: Genera enlaces compartibles para archivos públicos. Comparte tus archivos con un solo clic.
+- **Vistas previas**: Visualiza imágenes y archivos de texto directamente en la aplicación, sin necesidad de descargarlos.
+- **Etiquetas de colores**: Los archivos muestran una etiqueta de color según su extensión, ayudando a identificarlos visualmente.
+- **Límite de almacenamiento**: Cada usuario tiene un espacio de 100MB, así que puedes subir lo esencial sin preocupaciones.
+- **Confirmación de eliminaciones**: Evita eliminar archivos por accidente gracias a las confirmaciones de acción.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Control de Auditoría
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para mantener el orden, el administrador de la aplicación puede revisar un registro de las acciones realizadas, como subidas y eliminaciones de archivos. Esto ayuda a tener una vista general del uso de la plataforma.
 
-## Learning Laravel
+## ¿Qué hay detrás?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Proyecto5_Drive** está desarrollado con el framework **Laravel** y estilizado con **Bulma CSS** para lograr una interfaz intuitiva y profesional. Cada funcionalidad está pensada para ofrecer una experiencia de usuario fluida y amigable, con notificaciones de éxito y error para cada acción importante.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📂 Archivos Principales
 
-## Laravel Sponsors
+Para facilitar la navegación por el proyecto, aquí tienes un acceso rápido a los archivos clave:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Rutas principales** - `routes/web.php`: Define las rutas de la aplicación, incluyendo las rutas protegidas y de compartición de archivos.
+- **Controlador de Archivos** - `app/Http/Controllers/FicheroController.php`: Gestiona las funcionalidades de subida, descarga, y eliminación de archivos.
+- **Controlador de Auditoría** - `app/Http/Controllers/AuditController.php`: Controla el registro de acciones para la revisión del administrador.
+- **Política de Acceso a Archivos** - `app/Policies/FicheroPolicy.php`: Define las reglas de acceso y permisos para que los usuarios gestionen sus archivos.
+- **Modelo de Archivo** - `app/Models/Fichero.php`: Representa la estructura de los archivos en la base de datos.
+- **Modelo de Auditoría** - `app/Models/Audit.php`: Define el modelo para almacenar los registros de actividades de los usuarios.
+- **Vista Principal** - `resources/views/welcome.blade.php`: La interfaz principal para la gestión de archivos, que incluye el formulario de subida, la lista de archivos y sus opciones.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+¡Bienvenido a Proyecto5_Drive, tu nuevo espacio para almacenar y gestionar archivos en la web!
