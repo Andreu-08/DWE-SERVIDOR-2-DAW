@@ -26,13 +26,13 @@ Para mantener el orden, el administrador de la aplicación puede revisar un regi
 
 Para facilitar la navegación por el proyecto, aquí tienes un acceso rápido a los archivos clave:
 
-- **Rutas principales** - `routes/web.php`: Define las rutas de la aplicación, incluyendo las rutas protegidas y de compartición de archivos.
-- **Controlador de Archivos** - `app/Http/Controllers/FicheroController.php`: Gestiona las funcionalidades de subida, descarga, y eliminación de archivos.
-- **Controlador de Auditoría** - `app/Http/Controllers/AuditController.php`: Controla el registro de acciones para la revisión del administrador.
-- **Política de Acceso a Archivos** - `app/Policies/FicheroPolicy.php`: Define las reglas de acceso y permisos para que los usuarios gestionen sus archivos.
-- **Modelo de Archivo** - `app/Models/Fichero.php`: Representa la estructura de los archivos en la base de datos.
-- **Modelo de Auditoría** - `app/Models/Audit.php`: Define el modelo para almacenar los registros de actividades de los usuarios.
-- **Vista Principal** - `resources/views/welcome.blade.php`: La interfaz principal para la gestión de archivos, que incluye el formulario de subida, la lista de archivos y sus opciones.
+- [**Rutas principales** - `routes/web.php`](routes/web.php): Define las rutas de la aplicación, incluyendo las rutas protegidas y de compartición de archivos.
+- [**Controlador de Archivos** - `app/Http/Controllers/FicheroController.php`](app/Http/Controllers/FicheroController.php): Gestiona las funcionalidades de subida, descarga, y eliminación de archivos.
+- [**Controlador de Auditoría** - `app/Http/Controllers/AuditController.php`](app/Http/Controllers/AuditController.php): Controla el registro de acciones para la revisión del administrador.
+- [**Política de Acceso a Archivos** - `app/Policies/FicheroPolicy.php`](app/Policies/FicheroPolicy.php): Define las reglas de acceso y permisos para que los usuarios gestionen sus archivos.
+- [**Modelo de Archivo** - `app/Models/Fichero.php`](app/Models/Fichero.php): Representa la estructura de los archivos en la base de datos.
+- [**Modelo de Auditoría** - `app/Models/Audit.php`](app/Models/Audit.php): Define el modelo para almacenar los registros de actividades de los usuarios.
+- [**Vista Principal** - `resources/views/welcome.blade.php`](resources/views/welcome.blade.php): La interfaz principal para la gestión de archivos, que incluye el formulario de subida, la lista de archivos y sus opciones.
 
 ---
 
