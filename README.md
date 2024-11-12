@@ -11,5 +11,5 @@ Cada proyecto explora diferentes funcionalidades y conceptos de Laravel, sirvien
 - **Proyecto3**: Integración con MySQL.
 - **Proyecto4**: Relaciones entre modelos.
 - **Proyecto5**: Proyecto final de práctica.
-
+jajajaja
 ---
