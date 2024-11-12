@@ -12,5 +12,4 @@ Cada proyecto explora diferentes funcionalidades y conceptos de Laravel, sirvien
 - **Proyecto4**: Relaciones entre modelos.
 - **Proyecto5**: Proyecto final de práctica.
 
-;)
 ---
