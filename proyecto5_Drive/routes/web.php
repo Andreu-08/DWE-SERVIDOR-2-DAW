@@ -24,9 +24,13 @@ Route::middleware("auth")->group(function() {
 
     Route::get('/download/{file}', [FicheroController::class, 'download']);
 
-    Route::get('/delete/{file}', [FicheroController::class, 'delete'])
+    Route::delete('/delete/{file}', [FicheroController::class, 'delete'])
         ->can('delete', 'file');
 });
+
+//ruta para previsualizar el archivo 
+Route::get('/preview/{file}', [FicheroController::class, 'preview'])->middleware('auth');
+
 
 
 //login
