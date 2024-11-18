@@ -28,6 +28,15 @@ Route::middleware("auth")->group(function() {
         ->can('delete', 'file');
 });
 
+//rutas para cuando estes verificado como admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/auditoria', function () {
+        return view('auditoria');
+    });
+   
+});
+
+
 //ruta para previsualizar el archivo 
 Route::get('/preview/{file}', [FicheroController::class, 'preview'])->middleware('auth');
 

@@ -10,7 +10,7 @@ class Fichero extends Model
 {
     public function size()
     {
-        return Storage::disk('public')->size($this->path);
+        return Storage::disk('private')->size($this->path);
     }
 
 

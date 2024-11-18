@@ -24,7 +24,7 @@ class FicheroController extends Controller
         $fichero = new Fichero();
         
         // Guardar el archivo y almacenar la ruta en la base de datos
-        $fichero->path = $request->file('uploaded_file')->store('uploads', 'public');
+        $fichero->path = $request->file('uploaded_file')->store('uploads', 'private');
         $fichero->name = $request->file('uploaded_file')->getClientOriginalName();
         $fichero->visibility = $request->visibility;
         $fichero->user_id = Auth::id();
@@ -50,8 +50,16 @@ class FicheroController extends Controller
      */
     public function download(Fichero $file)
     {
-        // descarga el archivo
-        return Storage::download($file->path, $file->name);
+        // Verificar si el usuario tiene permiso para descargar
+        if ($file->visibility == 'private' && Auth::id() !== $file->user_id) {
+            return redirect()->back()->with('error', 'No tienes permiso para descargar este archivo.');
+        }
+
+        // Ruta completa del archivo en el almacenamiento privado
+        $filePath = storage_path('app/' . $file->path);
+
+        // Retornar el archivo como respuesta de descarga
+        return response()->download($filePath, $file->name);
     }
 
     /**

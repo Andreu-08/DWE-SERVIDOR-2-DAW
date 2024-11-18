@@ -10,6 +10,7 @@
 │   │   ├── Controllers
 │   │   │   ├── Controller.php
 │   │   │   └── FicheroController.php
+│   │   ├── Middleware
 │   │   └── Requests
 │   │       └── RegisterRequest.php
 │   ├── Models
@@ -25,6 +26,7 @@
 │   ├── app.php
 │   ├── cache
 │   │   ├── .gitignore
+│   │   ├── config.php
 │   │   ├── packages.php
 │   │   └── services.php
 │   └── providers.php
@@ -51,8 +53,10 @@
 │   │   ├── 0001_01_01_000001_create_cache_table.php
 │   │   ├── 0001_01_01_000002_create_jobs_table.php
 │   │   ├── 2024_11_09_070152_2024_11_09_065712_create_ficheroes_table.php
-│   │   └── 2024_11_11_144520_add_visibility_to_ficheroes_table.php
+│   │   ├── 2024_11_11_144520_add_visibility_to_ficheroes_table.php
+│   │   └── 2024_11_13_175107_add_role_to_users_table.php
 │   └── seeders
+│       ├── AdminUserSeeder.php
 │       └── DatabaseSeeder.php
 ├── docker-compose.yml
 ├── estructura.txt
@@ -91,20 +95,23 @@
 │   ├── app
 │   │   ├── .gitignore
 │   │   ├── private
-│   │   │   └── .gitignore
+│   │   │   ├── .gitignore
+│   │   │   └── uploads
+│   │   │       ├── 2lFvJQ7hFdx3DjnhnQlJI10ec9FHVVoe2RbBS2OT.pdf
+│   │   │       ├── 7a1W7CipJFA3XnzliDfnKUTOrR3tszTVG0c4MW7Z.png
+│   │   │       ├── CP81VP8n3K3jspIwU4sWbne4fELBdtwvIIhnNLBB.docx
+│   │   │       ├── YG7h8TUWIM8gbFr87v36XozzN7YOrFZLCTWIdtau.pdf
+│   │   │       ├── ZfKexY7vSdVgmFZttkXnnXxmf7KoZRbZGaRxP7k5.pdf
+│   │   │       ├── hVxZQ6RClo0eHi8DAyM0QwhuE2h3pbKPo8ydVRNZ.pdf
+│   │   │       ├── hlS6TLo3P0idU4ncPtIyLctI7Haz3KzX3z0CKmXA.pdf
+│   │   │       ├── ifPLo825Qz2ZLP3g9gsLoFh78LquCxiUebsdWr1V.pdf
+│   │   │       ├── ilYvyo8wE1NJ0hSF1fpAadeLPHCZG3sKzmsEuLuM.pdf
+│   │   │       ├── sIPOfLWXUM5wlh0RnWZ526KbGz9Ppi8IRjVtspXa.pdf
+│   │   │       ├── uLTtFZB3o8Rf9pm91CB26yIKit00JlnVqOCosy1M.png
+│   │   │       └── y7iUQtrAyalFlsdhjVDq7GpG9atoULVGaM9irWLL.pdf
 │   │   └── public
 │   │       ├── .gitignore
 │   │       └── uploads
-│   │           ├── 2lFvJQ7hFdx3DjnhnQlJI10ec9FHVVoe2RbBS2OT.pdf
-│   │           ├── CP81VP8n3K3jspIwU4sWbne4fELBdtwvIIhnNLBB.docx
-│   │           ├── TVpEPW4NapKt17VUSsprHAoYZPrpS54wA9pYx6qG.png
-│   │           ├── ZfKexY7vSdVgmFZttkXnnXxmf7KoZRbZGaRxP7k5.pdf
-│   │           ├── dgzCxIDKMF3jYyJwkoqtwhuCcWkKdoLkNaSxXC3j.png
-│   │           ├── hVxZQ6RClo0eHi8DAyM0QwhuE2h3pbKPo8ydVRNZ.pdf
-│   │           ├── hlS6TLo3P0idU4ncPtIyLctI7Haz3KzX3z0CKmXA.pdf
-│   │           ├── ifPLo825Qz2ZLP3g9gsLoFh78LquCxiUebsdWr1V.pdf
-│   │           ├── sSFpci6y9MeNJDFnvMaQMJz9K79Q3EQuFWzGkAXV.png
-│   │           └── uLTtFZB3o8Rf9pm91CB26yIKit00JlnVqOCosy1M.png
 │   ├── framework
 │   │   ├── .gitignore
 │   │   ├── cache
@@ -9410,4 +9417,4 @@
 │               └── Mixin.php
 └── vite.config.js
 
-1267 directories, 8143 files
+1269 directories, 8148 files

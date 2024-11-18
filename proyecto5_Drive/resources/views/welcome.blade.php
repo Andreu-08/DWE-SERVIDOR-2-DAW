@@ -108,10 +108,12 @@
                 </div>
                 
             </form>
+            @if (Auth::check() && Auth::user()->role === 'admin')
+                <a href="/auditoria" class="button is-primary">Auditoria</a>
+            @endif
+
         </section>
         @endcan 
-        
-        
         <!-- Notificaciones de Éxito/Error -->
         <section class="mt-5">
             @if (session('success'))
@@ -126,9 +128,6 @@
                     <button class="delete"></button>
                     {{ session('error') }}
                 </div>
-            @endif
-            @if (Auth::check() && Auth::user()->isAdmin())
-            <a href="/auditoria" class="button is-primary">Auditoria</a>
             @endif
         </section>
     </div>

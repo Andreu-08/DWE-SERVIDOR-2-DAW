@@ -46,8 +46,4 @@ class User extends Authenticatable
         ];
     }
 
-    // funcion para el usuario administrador
-    public function isAdmin(){
-        return $this->email === env('ADMIN_EMAIL');   
-    }
 }

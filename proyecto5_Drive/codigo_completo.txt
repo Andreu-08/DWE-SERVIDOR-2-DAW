@@ -92,7 +92,7 @@ class FicheroController extends Controller
         $fichero = new Fichero();
         
         // Guardar el archivo y almacenar la ruta en la base de datos
-        $fichero->path = $request->file('uploaded_file')->store('uploads', 'public');
+        $fichero->path = $request->file('uploaded_file')->store('uploads', 'private');
         $fichero->name = $request->file('uploaded_file')->getClientOriginalName();
         $fichero->visibility = $request->visibility;
         $fichero->user_id = Auth::id();
@@ -118,8 +118,16 @@ class FicheroController extends Controller
      */
     public function download(Fichero $file)
     {
-        // descarga el archivo
-        return Storage::download($file->path, $file->name);
+        // Verificar si el usuario tiene permiso para descargar
+        if ($file->visibility == 'private' && Auth::id() !== $file->user_id) {
+            return redirect()->back()->with('error', 'No tienes permiso para descargar este archivo.');
+        }
+
+        // Ruta completa del archivo en el almacenamiento privado
+        $filePath = storage_path('app/' . $file->path);
+
+        // Retornar el archivo como respuesta de descarga
+        return response()->download($filePath, $file->name);
     }
 
     /**
@@ -182,7 +190,7 @@ class Fichero extends Model
 {
     public function size()
     {
-        return Storage::disk('public')->size($this->path);
+        return Storage::disk('private')->size($this->path);
     }
 
 
@@ -240,10 +248,6 @@ class User extends Authenticatable
         ];
     }
 
-    // funcion para el usuario administrador
-    public function isAdmin(){
-        return $this->email === env('ADMIN_EMAIL');   
-    }
 }
 <?php
 
@@ -1417,6 +1421,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
+            
             'serve' => true,
             'throw' => false,
         ],
@@ -1440,6 +1445,13 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        
+        'private' => [
+        'driver' => 'local',
+        'root' => storage_path('app/private'),
+        'visibility' => 'private',
+        'throw' => false,
+    ],
 
     ],
 
@@ -1487,7 +1499,35 @@ class DatabaseSeeder extends Seeder
             'email' => 'b@b.com',
             'password' => 'b',
         ]);
+
+        $this->call([
+            AdminUserSeeder::class,]);
     }
+}
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class AdminUserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run()
+    {
+        User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('administrador'), // Cambia la contraseña según tu preferencia
+            'role' => 'admin',
+        ]);
+    }
+
 }
 <?php
 
@@ -1709,6 +1749,35 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->string('role')->default('user'); // "user" será el rol por defecto
+    });
+}
+
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
+    }
+};
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('cache', function (Blueprint $table) {
@@ -1770,6 +1839,15 @@ Route::middleware("auth")->group(function() {
     Route::delete('/delete/{file}', [FicheroController::class, 'delete'])
         ->can('delete', 'file');
 });
+
+//rutas para cuando estes verificado como admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/auditoria', function () {
+        return view('auditoria');
+    });
+   
+});
+
 
 //ruta para previsualizar el archivo 
 Route::get('/preview/{file}', [FicheroController::class, 'preview'])->middleware('auth');
