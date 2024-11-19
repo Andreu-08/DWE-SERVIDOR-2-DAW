@@ -2,31 +2,36 @@
 @extends('layout')
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1 class="title">{{ $file->name }}</h1>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Vista Previa del Archivo</h1>
+        <p><strong>Nombre del Archivo:</strong> {{ $file->name }}</p>
+        <p><strong>Tamaño:</strong> {{ $fileSize }} KB</p>
+        <p><strong>Tipo:</strong> {{ $fileType }}</p>
+        <p><strong>Visibilidad:</strong> {{ $file->visibility }}</p>
+        <p><strong>Propietario:</strong> {{ $file->user->name }}</p>
+        <p><strong>Fecha de Creación:</strong> {{ $file->created_at }}</p>
+        <p><strong>Última Actualización:</strong> {{ $file->updated_at }}</p>
 
-            <p><strong>Propietario:</strong> {{ $file->user->name }}</p>
-            <p><strong>Tamaño:</strong> {{ $file->size() }} KB</p>
-            <p><strong>Fecha de creación:</strong> {{ $file->created_at }}</p>
-            <p><strong>Última actualización:</strong> {{ $file->updated_at }}</p>
+        <hr>
 
-            <!-- Vista previa del archivo según el tipo -->
-            @if(Str::endsWith($file->name, ['.jpg', '.jpeg', '.png', '.gif']))
-                <!-- Vista previa de imagen -->
-                <figure class="image is-4by3">
-                    <img src="{{ Storage::url($file->path) }}" alt="{{ $file->name }}">
-                </figure>
-            @elseif(Str::endsWith($file->name, ['.txt', '.md', '.csv', '.log']))
-                <!-- Vista previa de texto -->
-                <div class="box">
-                    <pre>{{ Storage::get($file->path) }}</pre>
-                </div>
-            @else
-                <p>Este tipo de archivo no es compatible para vista previa.</p>
-            @endif
+        <!-- Mostrar vista previa según el tipo de archivo -->
+        @if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif']))
+            <figure class="image is-4by3">
+                <img src="{{ Storage::url($file->path) }}" alt="{{ $file->name }}">
+            </figure>
+        @elseif (in_array($fileType, ['txt', 'csv', 'log']))
+            <div class="box">
+                <pre>{{ Storage::get($file->path) }}</pre>
+            </div>
+        @else
+            <p>Este tipo de archivo no tiene vista previa disponible.</p>
+        @endif
 
-            <a href="/download/{$file->id}" class="button is-primary mt-3">Descargar</a>
-        </div>
-    </section>
+        <hr>
+
+        <!-- Botón para descargar el archivo -->
+        <a href="{{ url("/download/{$file->id}") }}" class="button is-primary">Descargar Archivo</a>
+    </div>
+</section>
 @endsection

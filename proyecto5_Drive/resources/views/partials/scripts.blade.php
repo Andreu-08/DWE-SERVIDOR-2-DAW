@@ -1,5 +1,4 @@
 <script>
-
     //confirmacion antes de borrar un archivo
     function confirmarBorrado(){
         return confirm('¿Estás seguro de que quieres borrar este archivo?');

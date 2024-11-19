@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Fichero extends Model
 {
+
+    
     public function size()
     {
         return Storage::disk('private')->size($this->path);

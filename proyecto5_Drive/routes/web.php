@@ -38,7 +38,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 //ruta para previsualizar el archivo 
-Route::get('/preview/{file}', [FicheroController::class, 'preview'])->middleware('auth');
+Route::get('/preview/{file}', [FicheroController::class, 'preview'])
+    ->middleware('auth')
+    ->can('view', 'file');
+
+
 
 
 

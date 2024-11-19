@@ -15,16 +15,23 @@ class FicheroPolicy
         //
     }
 
-    // solo el ususario 1 puede subir archivos
+    // permite subir ficheros a cualquier usuario
     public function upload(User $user)
     {
         return true;
     }
 
-    //solo el usuario que ha subido el fichero lo puedo borrar
+    //permite eliminar el fichero solo al ususario que ha subido el fichero
     public function delete(User $user , Fichero $fichero)
     {
         return $user->id === $fichero->user_id;
     }
+
+    //permite ver el fichero si es publico o si el usuario es el propietario
+    public function view(User $user, Fichero $fichero)
+    {
+        return $fichero->visibility === 'public' || $user->id === $fichero->user_id;
+    }
+    
     
 }

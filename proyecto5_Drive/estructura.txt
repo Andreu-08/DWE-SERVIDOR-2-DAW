@@ -26,10 +26,10 @@
 │   ├── app.php
 │   ├── cache
 │   │   ├── .gitignore
-│   │   ├── config.php
 │   │   ├── packages.php
 │   │   └── services.php
 │   └── providers.php
+├── codigo_completo.txt
 ├── composer.json
 ├── composer.lock
 ├── config
@@ -125,14 +125,11 @@
 │   │   └── views
 │   │       ├── .gitignore
 │   │       ├── 09ee47cb6b2ead6fe59c09eda6d900b2.php
-│   │       ├── 113d58b5956848a1f63585797a750bbf.php
 │   │       ├── 132b834a0a58f1e712afb341f8622879.php
 │   │       ├── 13908c918157ccfc7c05c05195757833.php
 │   │       ├── 19d1ca22cd8db231f88e0685e9c3a20e.php
-│   │       ├── 275c7c02e2528e6029079c885e2d2418.php
 │   │       ├── 368072756c233ac30f0cf310e266ea82.php
 │   │       ├── 419551074a50fbe34ef86a0e07ca7190.php
-│   │       ├── 5c2001e939204ec0b7ec56c9a9f31d3d.php
 │   │       ├── 5ef07899d0f4e1787c18af910f05fedc.php
 │   │       ├── 7389906bfbd45fb09d1d0760090d3e2c.php
 │   │       ├── 766dee102738823663d22a050856817b.php
@@ -9417,4 +9414,4 @@
 │               └── Mixin.php
 └── vite.config.js
 
-1269 directories, 8148 files
+1269 directories, 8145 files

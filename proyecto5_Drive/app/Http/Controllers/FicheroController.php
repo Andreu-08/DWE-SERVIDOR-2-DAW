@@ -34,15 +34,22 @@ class FicheroController extends Controller
 
         return redirect()->back()->with('success', 'Fichero subido correctamente');
     }
-    //funcion para previsualizar los archivos
-    public function preview(Fichero $file){
-        // Verificar si el archivo es privado y si el usuario es el propietario
-        if ($file->visibility == 'private' && Auth::id() !== $file->user_id) {
-            return redirect('/')->with('error', 'No tienes permiso para ver este archivo.');
+    public function preview(Fichero $file)
+    {
+        // Verificar si el usuario tiene permiso para ver el archivo
+        // Esto ya está manejado por la política 'view' en la ruta, 
+        // pero es una buena práctica para garantizar seguridad adicional.
+        if ($file->visibility === 'private' && (Auth::user()->id ?? null) !== $file->user_id) {
+            abort(403, 'No tienes permiso para ver este archivo.');
         }
-
-        // Enviar el archivo a la vista de vista previa
-        return view('file_preview', compact('file'));
+        
+    
+        // Pasar los datos del archivo a la vista
+        return view('file_preview', [
+            'file' => $file, // Modelo del archivo con todos sus datos
+            'fileSize' => number_format(Storage::size($file->path) / 1024, 2), // Tamaño en KB
+            'fileType' => pathinfo($file->name, PATHINFO_EXTENSION), // Extensión del archivo
+        ]);
     }
 
      /**
@@ -51,16 +58,22 @@ class FicheroController extends Controller
     public function download(Fichero $file)
     {
         // Verificar si el usuario tiene permiso para descargar
-        if ($file->visibility == 'private' && Auth::id() !== $file->user_id) {
+        if ($file->visibility === 'private' && Auth::id() !== $file->user_id) {
             return redirect()->back()->with('error', 'No tienes permiso para descargar este archivo.');
         }
 
-        // Ruta completa del archivo en el almacenamiento privado
-        $filePath = storage_path('app/' . $file->path);
+        // Verificar si el archivo existe
+        if (!Storage::disk('private')->exists($file->path)) {
+            return redirect()->back()->with('error', 'El archivo no existe o ha sido eliminado.');
+        }
+
+        // Obtener la ruta completa del archivo
+        $filePath = Storage::disk('private')->path($file->path);
 
         // Retornar el archivo como respuesta de descarga
         return response()->download($filePath, $file->name);
     }
+
 
     /**
      * Maneja la eliminación de un archivo.
@@ -75,5 +88,6 @@ class FicheroController extends Controller
 
         return redirect('/')->with('success', 'Fichero eliminado correctamente');
     }
+
 
 }
