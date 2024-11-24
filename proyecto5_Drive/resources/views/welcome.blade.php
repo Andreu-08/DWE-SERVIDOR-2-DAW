@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach ($ficheros as $fichero)
                     <tr>
-                        <td><a href="/preview/{{ $fichero->id }}">{{ $fichero->name }}</a></td>
+                        <td><a href="{{ route('file.preview', ['file' => $fichero->id]) }}">{{ $fichero->name }}</a></td>
                         <td>{{ $fichero->size() }}KB</td>
                         <td>{{ $fichero->user->name }}</td>
                         <td>{{ $fichero->created_at }}</td>
@@ -62,6 +62,11 @@
                     @endforeach
                 </tbody>
             </table>
+            {{-- paginate para la tabla de ficheros --}}
+
+            @for ($i = 1; $i <= $ficheros->lastPage(); $i++)
+                <a href="?page={{ $i }}">{{ $i }}</a>
+            @endfor
         </section>
 
       <!-- Formulario de subida en welcome.blade.php -->
@@ -132,6 +137,33 @@
         </section>
     </div>
 </main>
-@include('partials.scripts')
+<script>
+    //confirmacion antes de borrar un archivo
+    function confirmarBorrado(){
+        return confirm('¿Estás seguro de que quieres borrar este archivo?');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Función para cerrar notificaciones
+        const deleteButtons = document.querySelectorAll('.notification .delete');
+        
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                button.parentNode.remove(); // Cierra la notificación al hacer clic en el botón de cierre
+            });
+        });
+    });
+    
+
+    //funcion apra mostrar el nombre del archivo seleccionado
+    function mostrarNombreArchivo() {
+        const fileInput = document.getElementById('uploadedFileInput');
+        const fileNameLabel = document.getElementById('fileNameLabel');
+
+        if (fileInput.files.length > 0) {
+            fileNameLabel.textContent = fileInput.files[0].name;
+        }
+    }
+</script>
 
 @endsection
