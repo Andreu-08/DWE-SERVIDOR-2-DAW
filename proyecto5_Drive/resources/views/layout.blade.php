@@ -5,6 +5,7 @@
     @include('partials.head')
 </head>
 <body>
+    @include('partials.header')
     <div class="container">
         {{-- contenido principal de las vistas --}}
         @yield('content')

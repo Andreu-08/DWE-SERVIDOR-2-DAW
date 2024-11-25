@@ -81,19 +81,8 @@
             @foreach ($comments as $comment)
                 <li>
                     @include('partials.comment', ['comment' => $comment]) {{-- Recursividad --}}
-
-                    <!-- Botón para mostrar el formulario de respuesta -->
-                    {{-- @can('reply', $comment)
-                        <button 
-                            class="button is-primary is-small is-rounded is-outlined reply-button" 
-                            data-comment-id="{{ $comment->id }}" 
-                            data-comment-author="{{ $comment->user->name }}">
-                            Responder
-                        </button>
-                    @endcan --}}
-
                     <!-- Contenedor para el formulario de respuesta -->
-                    <div class="reply-form-container" id="reply-form-{{ $comment->id }}"></div>
+                    <div class="reply-form-container" id="reply-form"></div>
                 </li>
                 <hr>
             @endforeach
@@ -116,15 +105,17 @@
 
         replyButtons.forEach(button => {
             button.addEventListener('click', function () {
+                
                 const commentId = button.getAttribute('data-comment-id');
+                console.log("fdsdfssd", commentId);
                 const commentAuthor = button.getAttribute('data-comment-author');
-                const formContainer = document.querySelector(`#reply-form-${commentId}`);
+                const formContainer = document.querySelector(`#reply-form`);
 
                 // Verificar si el formulario ya está visible
-                if (formContainer.innerHTML.trim() !== '') {
-                    formContainer.innerHTML = ''; // Ocultar el formulario si ya existe
-                    return;
-                }
+                // if (formContainer.innerHTML.trim() !== '') {
+                //     formContainer.innerHTML = ''; // Ocultar el formulario si ya existe
+                //     return;
+                // }
 
                 // Crear el formulario dinámico
                 const formHtml = `
@@ -144,6 +135,7 @@
                 `;
 
                 // Insertar el formulario en el contenedor correspondiente
+                console.log(formContainer);
                 formContainer.innerHTML = formHtml;
             });
         });

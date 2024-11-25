@@ -1,24 +1,6 @@
 @extends('layout')
 
 @section('content')
-<header class="navbar is-spaced">
-    <div class="container is-flex is-align-items-center">
-        @auth
-            <span class="navbar-item">{{ Auth::user()->name }}</span> | 
-            
-            {{-- Botón visible solo para administradores --}}
-            @if (Auth::user()->isAdmin())
-                <a href="/admin" class="navbar-item button is-primary">Administración</a> |
-            @endif
-            
-            <a href="/logout" class="navbar-item">Log out</a>
-        @else 
-            <a href="/login" class="navbar-item">Log in</a> |
-            <a href="/register" class="navbar-item">Register</a>
-        @endauth
-    </div>
-</header>
-
 
 <main class="section">
     <div class="container">
