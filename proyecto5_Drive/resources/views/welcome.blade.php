@@ -5,6 +5,12 @@
     <div class="container is-flex is-align-items-center">
         @auth
             <span class="navbar-item">{{ Auth::user()->name }}</span> | 
+            
+            {{-- Botón visible solo para administradores --}}
+            @if (Auth::user()->isAdmin())
+                <a href="/admin" class="navbar-item button is-primary">Administración</a> |
+            @endif
+            
             <a href="/logout" class="navbar-item">Log out</a>
         @else 
             <a href="/login" class="navbar-item">Log in</a> |
@@ -12,6 +18,7 @@
         @endauth
     </div>
 </header>
+
 
 <main class="section">
     <div class="container">
@@ -113,9 +120,7 @@
                 </div>
                 
             </form>
-            @if (Auth::check() && Auth::user()->role === 'admin')
-                <a href="/auditoria" class="button is-primary">Auditoria</a>
-            @endif
+            
 
         </section>
         @endcan 

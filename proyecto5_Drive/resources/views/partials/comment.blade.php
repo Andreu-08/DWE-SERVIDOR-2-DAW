@@ -16,6 +16,14 @@
                 </button>
             </form>
             @endcan
+            @can('reply', $comment)
+            <button 
+                class="button is-primary is-small is-rounded is-outlined reply-button" 
+                data-comment-id="{{ $comment->id }}" 
+                data-comment-author="{{ $comment->user->name }}">
+                Responder
+            </button>
+        @endcan
 
         </div>
 

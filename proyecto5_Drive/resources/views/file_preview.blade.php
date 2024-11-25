@@ -83,14 +83,14 @@
                     @include('partials.comment', ['comment' => $comment]) {{-- Recursividad --}}
 
                     <!-- Botón para mostrar el formulario de respuesta -->
-                    @can('reply', $comment)
+                    {{-- @can('reply', $comment)
                         <button 
                             class="button is-primary is-small is-rounded is-outlined reply-button" 
                             data-comment-id="{{ $comment->id }}" 
                             data-comment-author="{{ $comment->user->name }}">
                             Responder
                         </button>
-                    @endcan
+                    @endcan --}}
 
                     <!-- Contenedor para el formulario de respuesta -->
                     <div class="reply-form-container" id="reply-form-{{ $comment->id }}"></div>

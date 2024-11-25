@@ -11,7 +11,38 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    
+       /**
+     * Relación con el modelo Role: Un usuario pertenece a un rol.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
+    /**
+     * Verifica si el usuario tiene un rol específico.
+     */
+    public function hasRole($roleName)
+    {
+        return $this->role->name === $roleName;
+    }
+
+    /**
+     * Verifica si el usuario es administrador.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role->name === 'admin'; // Compara el nombre del rol
+    }
+
+    /**
+     * Verifica si el usuario es un usuario normal.
+     */
+    public function isUser(): bool
+    {
+        return $this->role->name === 'user'; // Compara el nombre del rol
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -45,5 +76,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //constantes para los roles admin y user 
 
 }

@@ -13,8 +13,10 @@ class CommentPolicy
     public function reply(User $user, Comment $comment)
     {
         // Permitir solo al dueño del archivo responder al comentario
-        return $user->id !== $comment->file->user_id;
+        return $user->id === $comment->file->user_id;
     }
+
+    
 
 
     //polittica para que solo el autor pueda borrar comentarios 

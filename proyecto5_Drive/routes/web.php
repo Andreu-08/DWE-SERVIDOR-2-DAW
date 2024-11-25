@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ComentController;
 use App\Http\Controllers\FicheroController;
 use App\Http\Requests\RegisterRequest;
@@ -40,6 +41,12 @@ Route::middleware("auth")
     Route::get('/file-content/{file}', [FicheroController::class, 'serveContent'])
     ->name('file.content');
 
+    //rutas para admin
+
+    //muestar el dashboard de administrador
+    Route::get('/admin', [AdminController::class, 'index'])
+        ->can('accessAdminPanel', User::class)
+        ->name('admin.index');
 
     //rutas para los comentrios 
 
@@ -56,15 +63,6 @@ Route::middleware("auth")
         ->can('delete', 'comment')
         ->name('comment.delete');
     
-    //rutas para usuario autenticado como admin
-    Route::middleware('admin')
-        ->group(function(){
-
-            Route::get('/auditoria', function () {
-                return view('auditoria');
-            });
-
-        });
 });
 
 
@@ -120,13 +118,3 @@ Route::post('/login', function(Request $request){
     });
     
     
-    // //rutas para cuando estes verificado como admin
-    // Route::middleware(['auth', 'admin'])->group(function () {
-       
-    // });
-    
-    
-    // //ruta para previsualizar el archivo 
-    // Route::get('/preview/{file}', [FicheroController::class, 'preview'])
-    //     ->middleware('auth')
-    //     ->can('view', 'file');
