@@ -111,12 +111,6 @@
                 const commentAuthor = button.getAttribute('data-comment-author');
                 const formContainer = document.querySelector(`#reply-form`);
 
-                // Verificar si el formulario ya está visible
-                // if (formContainer.innerHTML.trim() !== '') {
-                //     formContainer.innerHTML = ''; // Ocultar el formulario si ya existe
-                //     return;
-                // }
-
                 // Crear el formulario dinámico
                 const formHtml = `
                     <form method="POST" action="/comment/${commentId}/reply" class="box">
