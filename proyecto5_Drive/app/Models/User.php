@@ -12,7 +12,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     
-       /**
+    /**
      * Relación con el modelo Role: Un usuario pertenece a un rol.
      */
     public function role()
@@ -43,6 +43,15 @@ class User extends Authenticatable
     {
         return $this->role->name === 'user'; // Compara el nombre del rol
     }
+
+    /**
+     * Relación many-to-many con el modelo Fichero para archivos compartidos
+     */
+    public function sharedFiles()
+    {
+        return $this->belongsToMany(Fichero::class, 'fichero_user', 'user_id', 'fichero_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

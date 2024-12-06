@@ -4,28 +4,19 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ComentController;
 use App\Http\Controllers\FicheroController;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Comment;
-use App\Models\Fichero;
 use App\Models\User;
-use Faker\Guesser\Name;
-use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-
-Route::get('/', function () {
-    return view('welcome')
-        ->with('ficheros', Fichero::paginate(5));
-});
 
 
-//rutas para los Ficheroscontroladas por el middelware deautenticancion
-Route::middleware("auth")
+Route::get('/', [FicheroController::class, 'index']);
 
-->group(function() {
+// Rutas para los Ficheros controladas por el middleware de autenticación
+Route::middleware('auth')->group(function() {
     Route::post('/upload', [FicheroController::class, 'upload'])
+        ->name('file.upload')
         ->can('upload', App\Models\Fichero::class);
 
     Route::get('/download/{file}', [FicheroController::class, 'download']);
@@ -33,20 +24,38 @@ Route::middleware("auth")
     Route::delete('/delete/{file}', [FicheroController::class, 'delete'])
         ->can('delete', 'file');
 
-    //ruta para previsualizar el archivo 
+    // Ruta para previsualizar el archivo 
     Route::get('/preview/{file}', [FicheroController::class, 'preview'])
         ->name('file.preview')
         ->can('view', 'file');
         
     Route::get('/file-content/{file}', [FicheroController::class, 'serveContent'])
-    ->name('file.content');
+        ->name('file.content');
 
-    //rutas para admin
+    // Ruta para mostrar la papelera
+    Route::get('/trash', [FicheroController::class, 'trash'])
+        ->name('file.trash');
 
-    //muestar el dashboard de administrador
+    // Ruta para restaurar archivos de la papelera
+    Route::post('/restore/{id}', [FicheroController::class, 'restore'])
+        ->name('file.restore');
+
+    // Ruta para compartir archivos
+    Route::post('/share/{file}', [FicheroController::class, 'share'])
+        ->name('file.share');
+      
+
+    // Ruta para ver archivos compartidos conmigo
+    Route::get('/shared-with-me', [FicheroController::class, 'sharedWithMe'])
+        ->name('file.sharedWithMe');
+
+    // Rutas para admin
+    // Muestra el dashboard de administrador
     Route::get('/admin', [AdminController::class, 'index'])
         ->can('accessAdminPanel', User::class)
         ->name('admin.index');
+
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     //rutas para los comentrios 
 
@@ -69,7 +78,7 @@ Route::middleware("auth")
 //login
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
 Route::post('/login', function(Request $request){
     
@@ -116,5 +125,3 @@ Route::post('/login', function(Request $request){
         
         return redirect('/')->with('status', 'Registro exitoso. Ahora puedes iniciar sesión.');
     });
-    
-    

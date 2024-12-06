@@ -7,14 +7,7 @@ use App\Models\User;
 
 class FicheroPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
+   
     // permite subir ficheros a cualquier usuario
     public function upload(User $user)
     {
@@ -54,6 +47,14 @@ class FicheroPolicy
         return false; // Caso contrario, denegar
     }
 
-    
-    
+    public function restore(User $user, Fichero $fichero)
+    {
+        return $user->id === $fichero->user_id;
+    }
+
+    // Permite compartir el fichero solo al usuario que ha subido el fichero
+    public function share(User $user, Fichero $fichero)
+    {
+        return $user->id === $fichero->user_id;
+    }
 }

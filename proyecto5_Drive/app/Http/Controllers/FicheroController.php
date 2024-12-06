@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Fichero;
+use App\Models\User;
+use App\Models\UserAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FicheroController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Maneja la subida de un archivo.
      */
@@ -33,6 +39,12 @@ class FicheroController extends Controller
 
         // Guardar en la base de datos
         $fichero->save();
+
+        UserAction::create([
+            'user_id' => Auth::id(),
+            'action' => 'uploaded',
+            'file_id' => $fichero->id,
+        ]);
 
         return redirect()->back()->with('success', 'Fichero subido correctamente');
     }
@@ -88,14 +100,18 @@ class FicheroController extends Controller
      */
     public function delete(Fichero $file)
     {
-        // Eliminar el archivo del almacenamiento
-        Storage::delete($file->path);
-
-        // Eliminar el registro en la base de datos
+        $this->authorize('delete', $file);
         $file->delete();
 
-        return redirect('/')->with('success', 'Fichero eliminado correctamente');
+        UserAction::create([
+            'user_id' => Auth::id(),
+            'action' => 'deleted',
+            'file_id' => $file->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Fichero movido a la papelera correctamente');
     }
+
     public function serveContent(Fichero $file)
     {
         // Verificar permisos para acceder al archivo
@@ -117,5 +133,64 @@ class FicheroController extends Controller
             'Content-Disposition' => 'inline',
         ]);
     }
+  
+     
+    public function index()
+    {
+        $ficherosPrivados = new LengthAwarePaginator([], 0, 10);
+        $ficherosPublicos = Fichero::with('user')->where('visibility', 'public')->paginate(10);
+        $ficherosTodos = new LengthAwarePaginator([], 0, 10);
+        $ficherosCompartidos = new LengthAwarePaginator([], 0, 10);
 
+        if (Auth::check()) {
+            $ficherosPrivados = Fichero::with('user')->where('visibility', 'private')->where('user_id', Auth::id())->paginate(10);
+            $ficherosTodos = Fichero::with('user')->where(function ($query) {
+                $query->where('visibility', 'private')->where('user_id', Auth::id())
+                      ->orWhere('visibility', 'public');
+            })->paginate(10);
+            $ficherosCompartidos = Auth::user()->sharedFiles()->with('user')->paginate(10);
+        }
+
+        return view('welcome', compact('ficherosPrivados', 'ficherosPublicos', 'ficherosTodos', 'ficherosCompartidos'));
+    }
+
+    public function trash()
+    {
+        $ficheros = Fichero::onlyTrashed()->where('user_id', Auth::id())->paginate(10);
+
+        return view('partials.archivosEliminados', compact('ficheros'));
+    }
+
+    public function restore($id)
+    {
+        $file = Fichero::onlyTrashed()->findOrFail($id);
+        $this->authorize('restore', $file);
+        $file->restore();
+
+        return redirect()->back()->with('success', 'Fichero recuperado correctamente');
+    }
+
+    public function share(Request $request, $fileId)
+    {
+        $file = Fichero::findOrFail($fileId);
+        $this->authorize('share', $file);
+
+        $user = User::where('email', $request->input('email'))->firstOrFail();
+        $file->sharedWith()->attach($user);
+
+        UserAction::create([
+            'user_id' => Auth::id(),
+            'action' => 'shared',
+            'file_id' => $file->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Fichero compartido correctamente');
+    }
+
+    public function sharedWithMe()
+    {
+        $ficheros = Auth::user()->sharedFiles()->with('user')->paginate(10);
+
+        return view('archivosCompartidos', compact('ficheros'));
+    }
 }
