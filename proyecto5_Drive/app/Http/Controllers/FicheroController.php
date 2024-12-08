@@ -22,31 +22,27 @@ class FicheroController extends Controller
      */
     public function upload(Request $request)
     {
-        // Validar el archivo subido
+       
         $request->validate([
             'uploaded_file' => 'required|file|max:10240', // 10MB
             'visibility' => 'required|in:public,private',
         ]);
 
-        // Crear una nueva instancia de Fichero
         $fichero = new Fichero();
-
-        // Guardar el archivo y almacenar la ruta en la base de datos
         $fichero->path = $request->file('uploaded_file')->store('uploads', 'private');
         $fichero->name = $request->file('uploaded_file')->getClientOriginalName();
         $fichero->visibility = $request->visibility;
         $fichero->user_id = Auth::id();
 
-        // Guardar en la base de datos
         $fichero->save();
 
         UserAction::create([
             'user_id' => Auth::id(),
-            'action' => 'uploaded',
+            'action' => 'upload',
             'file_id' => $fichero->id,
         ]);
 
-        return redirect()->back()->with('success', 'Fichero subido correctamente');
+        return redirect()->back()->with('success', 'Archivo subido correctamente');
     }
 
     /**
@@ -58,22 +54,21 @@ class FicheroController extends Controller
         if ($file->visibility === 'private' && Auth::id() !== $file->user_id) {
             abort(403, 'No tienes permiso para acceder a este archivo.');
         }
-    
+
         // Verificar que el archivo exista
         if (!Storage::disk('private')->exists($file->path)) {
             abort(404, 'El archivo no existe.');
         }
-    
+
         // Preparar datos para la vista
         $comments = Comment::where('file_id', $file->id)
             ->whereNull('parent_id')
             ->with('replies')
             ->paginate(2);
-    
+
         $fileSize = number_format(Storage::size($file->path) / 1024, 2);
-        $fileType = pathinfo($file->name, PATHINFO_EXTENSION);
-    
-        return view('file_preview', compact('file', 'comments', 'fileSize', 'fileType'));
+
+        return view('file_preview', compact('file', 'comments', 'fileSize'));
     }
 
     /**
@@ -105,13 +100,16 @@ class FicheroController extends Controller
 
         UserAction::create([
             'user_id' => Auth::id(),
-            'action' => 'deleted',
+            'action' => 'delete',
             'file_id' => $file->id,
         ]);
 
         return redirect()->back()->with('success', 'Fichero movido a la papelera correctamente');
     }
 
+    /**
+     * Sirve el contenido de un archivo para previsualización.
+     */
     public function serveContent(Fichero $file)
     {
         // Verificar permisos para acceder al archivo
@@ -133,8 +131,7 @@ class FicheroController extends Controller
             'Content-Disposition' => 'inline',
         ]);
     }
-  
-     
+
     public function index()
     {
         $ficherosPrivados = new LengthAwarePaginator([], 0, 10);
@@ -170,6 +167,9 @@ class FicheroController extends Controller
         return redirect()->back()->with('success', 'Fichero recuperado correctamente');
     }
 
+    /**
+     * Maneja el compartir un archivo con otro usuario.
+     */
     public function share(Request $request, $fileId)
     {
         $file = Fichero::findOrFail($fileId);
@@ -180,13 +180,16 @@ class FicheroController extends Controller
 
         UserAction::create([
             'user_id' => Auth::id(),
-            'action' => 'shared',
+            'action' => 'share',
             'file_id' => $file->id,
         ]);
 
         return redirect()->back()->with('success', 'Fichero compartido correctamente');
     }
 
+    /**
+     * Muestra los archivos compartidos con el usuario autenticado.
+     */
     public function sharedWithMe()
     {
         $ficheros = Auth::user()->sharedFiles()->with('user')->paginate(10);

@@ -19,9 +19,12 @@ Route::middleware('auth')->group(function() {
         ->name('file.upload')
         ->can('upload', App\Models\Fichero::class);
 
-    Route::get('/download/{file}', [FicheroController::class, 'download']);
+    Route::get('/download/{file}', [FicheroController::class, 'download'])
+        ->name('file.download')
+        ->can('view', 'file');
 
     Route::delete('/delete/{file}', [FicheroController::class, 'delete'])
+        ->name('file.delete')
         ->can('delete', 'file');
 
     // Ruta para previsualizar el archivo 
@@ -50,78 +53,62 @@ Route::middleware('auth')->group(function() {
         ->name('file.sharedWithMe');
 
     // Rutas para admin
-    // Muestra el dashboard de administrador
-    Route::get('/admin', [AdminController::class, 'index'])
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->can('accessAdminPanel', User::class)
-        ->name('admin.index');
+        ->name('admin.dashboard');
 
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-    //rutas para los comentrios 
-
-    //permite poner un comentario en un fichero
+    // Rutas para los comentarios
     Route::post('/comment/{file}', [ComentController::class, 'store']);
-    //muestra la vista del comentario para poder responder
-    Route::get('/comment/{comment}', [ComentController::class, 'show'])
-        ->name('comment.show');
-    //permite responder a un comentario de forma recursiva
-    Route::post('/comment/{comment}/reply', [ComentController::class, 'reply'])
-        ->name('comment.reply');
-    //permite borrar comentarios solo si eres el autor
+    Route::get('/comment/{comment}', [ComentController::class, 'show'])->name('comment.show');
+    Route::post('/comment/{comment}/reply', [ComentController::class, 'reply'])->name('comment.reply');
     Route::delete('/comment/{comment}', [ComentController::class, 'destroy'])
         ->can('delete', 'comment')
         ->name('comment.delete');
-    
 });
 
-
-//login
+// Ruta para login
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
 Route::post('/login', function(Request $request){
-    
     $credentials = $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required'],
     ]);
-    
+
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        
         return redirect()->intended('/');
     }
-    
+
     return back()->withErrors([
         'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    });
+    ])->onlyInput('email');
+})->name('login.post');
+
+// Ruta para logout
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
+//registro
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::post('/register', function(RegisterRequest $request) {
     
-    Route::get('/logout', function(Request $request){
-        Auth::logout();
-        
-        $request->session()->invalidate();
-        
-        $request->session()->regenerateToken();
-        
-        return redirect('/');
-    });
+    $data = $request->validated();
     
-    //registro
-    Route::get('/register', function () {
-        return view('register');
-    });
+    $user = new User();
+    $user->name = $data['name'];
+    $user->email = $data['email'];
+    $user->password = Hash::make($data['password']);
+    $user->save();
     
-    Route::post('/register', function(RegisterRequest $request) {
-        
-        $data = $request->validated();
-        
-        $user = new User();
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
-        $user->save();
-        
-        return redirect('/')->with('status', 'Registro exitoso. Ahora puedes iniciar sesión.');
-    });
+    return redirect('/')->with('status', 'Registro exitoso. Ahora puedes iniciar sesión.');
+});

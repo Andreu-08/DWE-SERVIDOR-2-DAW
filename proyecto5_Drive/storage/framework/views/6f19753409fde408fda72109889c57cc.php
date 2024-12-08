@@ -8,10 +8,12 @@
             
             
             <?php if(Auth::user()->isAdmin()): ?>
-                <a href="/admin" class="navbar-item button is-primary">Administración</a> |
+                <a href="/admin/dashboard" class="navbar-item button is-primary">Administración</a> | 
             <?php endif; ?>
-            
-            <a href="/logout" class="navbar-item">Log out</a>
+                <form action="<?php echo e(route('logout')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <button type="submit" class="btn btn-danger"> Logout</button>
+                </form>
         <?php else: ?> 
             <a href="/login" class="navbar-item">Log in</a> |
             <a href="/register" class="navbar-item">Register</a>

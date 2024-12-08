@@ -10,7 +10,7 @@ export default function EstadoFactura({estado}){
             {
         
                 "text-gray-500 bg-gray-300": estado ==="pendiente",
-                "text-white bg-green-500": estado ==="pagada"
+                "text-white bg-green-500": estado === "pagada"
             }
             
         )}

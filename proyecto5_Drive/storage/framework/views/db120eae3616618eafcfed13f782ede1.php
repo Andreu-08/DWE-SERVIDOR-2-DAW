@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Size</th>
+                
                 <th>Owner</th>
                 <th>Created at</th>
                 <th>Updated at</th>
@@ -21,7 +21,7 @@
 
                     </a>
                 </td>
-                <td><?php echo e(Storage::disk('private')->size($fichero->path)); ?> KB</td>
+                
                 <td><?php echo e($fichero->user ? $fichero->user->name : 'Desconocido'); ?></td>
                 <td><?php echo e($fichero->created_at); ?></td>
                 <td><?php echo e($fichero->updated_at); ?></td>

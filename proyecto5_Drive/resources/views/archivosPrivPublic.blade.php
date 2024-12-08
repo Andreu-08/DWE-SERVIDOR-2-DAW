@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Size</th>
+                {{-- <th>Size</th> --}}
                 <th>Owner</th>
                 <th>Created at</th>
                 <th>Updated at</th>
@@ -20,7 +20,7 @@
                         {{ $fichero->name }}
                     </a>
                 </td>
-                <td>{{ Storage::disk('private')->size($fichero->path) }} KB</td>
+                {{-- <td>{{ Storage::disk('private')->size($fichero->path) }} KB</td> --}}
                 <td>{{ $fichero->user ? $fichero->user->name : 'Desconocido' }}</td>
                 <td>{{ $fichero->created_at }}</td>
                 <td>{{ $fichero->updated_at }}</td>

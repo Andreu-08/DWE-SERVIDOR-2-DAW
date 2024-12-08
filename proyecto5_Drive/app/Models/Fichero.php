@@ -11,6 +11,15 @@ class Fichero extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'ficheroes'; // Especificar el nombre de la tabla
+
+    // protected $fillable = [
+    //     'user_id',
+    //     'name',
+    //     'path',
+    //     'visibility',
+    // ];
+
     protected $dates = ['deleted_at'];
 
     // Relación many-to-one con el modelo User
@@ -27,10 +36,10 @@ class Fichero extends Model
 
     // Método para calcular el tamaño del archivo
     public function size()
-
     {
         return Storage::disk('private')->size($this->path);
     }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'file_id'); 

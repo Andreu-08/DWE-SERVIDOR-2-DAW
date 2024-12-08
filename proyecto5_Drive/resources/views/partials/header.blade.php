@@ -8,10 +8,12 @@
             
             {{-- Botón visible solo para administradores --}}
             @if (Auth::user()->isAdmin())
-                <a href="/admin" class="navbar-item button is-primary">Administración</a> |
+                <a href="/admin/dashboard" class="navbar-item button is-primary">Administración</a> | 
             @endif
-            
-            <a href="/logout" class="navbar-item">Log out</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger"> Logout</button>
+                </form>
         @else 
             <a href="/login" class="navbar-item">Log in</a> |
             <a href="/register" class="navbar-item">Register</a>
