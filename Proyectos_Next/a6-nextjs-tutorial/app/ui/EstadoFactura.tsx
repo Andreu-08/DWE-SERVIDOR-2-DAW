@@ -8,6 +8,7 @@ export default function EstadoFactura({estado}){
         <span className={clsx(
             "inline-flex items-center rounded px-2 py-1",
             {
+                
                 "text-gray-500 bg-gray-300": estado ==="pendiente",
                 "text-white bg-green-500": estado ==="pagada"
             }
