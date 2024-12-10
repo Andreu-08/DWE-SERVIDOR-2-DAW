@@ -12,6 +12,13 @@ class NoticiaController extends Controller
     /**
      * Display a listing of the resource.
      */
+        
+    /**
+     * index
+     *
+     * @return void
+     */
+        
     public function index()
     {
         

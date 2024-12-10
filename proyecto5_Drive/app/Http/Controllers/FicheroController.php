@@ -20,6 +20,12 @@ class FicheroController extends Controller
     /**
      * Maneja la subida de un archivo.
      */
+    /**
+     * Undocumented function
+     *
+     * @param  Request $request
+     * @return void
+     */
     public function upload(Request $request)
     {
        
@@ -47,6 +53,12 @@ class FicheroController extends Controller
 
     /**
      * Previsualización de un archivo.
+     */
+    /**
+     * Undocumented function
+     *
+     * @param  Fichero $file
+     * @return void
      */
     public function preview(Fichero $file)
     {
@@ -109,6 +121,12 @@ class FicheroController extends Controller
 
     /**
      * Sirve el contenido de un archivo para previsualización.
+     */    
+    /**
+     * serveContent
+     *
+     * @param  mixed $file
+     * @return void
      */
     public function serveContent(Fichero $file)
     {
@@ -132,6 +150,11 @@ class FicheroController extends Controller
         ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index()
     {
         $ficherosPrivados = new LengthAwarePaginator([], 0, 10);
@@ -150,7 +173,12 @@ class FicheroController extends Controller
 
         return view('welcome', compact('ficherosPrivados', 'ficherosPublicos', 'ficherosTodos', 'ficherosCompartidos'));
     }
-
+    
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function trash()
     {
         $ficheros = Fichero::onlyTrashed()->where('user_id', Auth::id())->paginate(10);
@@ -189,6 +217,11 @@ class FicheroController extends Controller
 
     /**
      * Muestra los archivos compartidos con el usuario autenticado.
+     */
+    /**
+     * Undocumented function
+     *
+     * @return void
      */
     public function sharedWithMe()
     {

@@ -13,6 +13,13 @@ class ComentController extends Controller
 {
     /**
      * Almacenar un comentario en la base de datos.
+     */    
+    /**
+     * store
+     *
+     * @param  mixed $request
+     * @param  mixed $fileId
+     * @return void
      */
     public function store(Request $request, $fileId)
     {
@@ -41,7 +48,13 @@ class ComentController extends Controller
         // Redirigir a la vista de previsualización del archivo con un mensaje de éxito
         return redirect("/preview/{$fileId}")->with('success', 'Comentario agregado correctamente.');
     }
-    
+        
+    /**
+     * show
+     *
+     * @param  mixed $comment
+     * @return void
+     */
     public function show(Comment $comment)
     {
         // Cargar el comentario y su archivo relacionado
@@ -53,7 +66,13 @@ class ComentController extends Controller
         ]);
     }
 
-    //funcion para eliminar un comentario
+    //funcion para eliminar un comentario    
+    /**
+     * destroy
+     *
+     * @param  mixed $comment
+     * @return void
+     */
     public function destroy(Comment $comment)
     {
         // Eliminar el comentario y sus respuestas anidadas
@@ -64,7 +83,14 @@ class ComentController extends Controller
     }
     
 
-    //funcion reply que permite responder comentarios de forma recursiva
+    //funcion reply que permite responder comentarios de forma recursiva    
+    /**
+     * reply
+     *
+     * @param  mixed $request
+     * @param  mixed $comment
+     * @return void
+     */
     public function reply(Request $request, Comment $comment)
     {
         // Verificar que el usuario esté autenticado
