@@ -1,1 +1,18 @@
+
+# Node.js dependencies
+node_modules/
+.pnpm/
 .pnpm-store/
+
+# Logs
+logs/
+*.log
+
+# Build outputs
+.next/
+dist/
+out/
+
+# VSCode settings
+.vscode/
+.devcontainer
