@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BeakerIcon } from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -15,7 +15,7 @@ export default function NavLink({ ruta, texto }) {
         "font-bold pointer-events-none	" : path === ruta,
       })}
     >
-      <BeakerIcon className="w-4" />
+      <ExclamationCircleIcon className="w-4" />
       <span className="hidden sm:block">{texto}</span>
     </Link>
   );
