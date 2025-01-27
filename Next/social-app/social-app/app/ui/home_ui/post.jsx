@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { HeartIcon, ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-export default () => {
+
+
+export default ({content, url}) => {
   return (
     <div className=" flex flex-col gap-1 max-w-md">
       <div className="flex gap-2">
@@ -16,7 +18,7 @@ export default () => {
         <span>1 dia</span>
       </div>
       <div>
-        <Image src="/astronauta.jpg" alt="post" width={448} height={448} />
+        <Image src={url} alt="post" width={448} height={448} />
       </div>
       <div>
         <div className="flex gap-2">
@@ -27,8 +29,7 @@ export default () => {
       </div>
       <div>
         <p>
-          <span className="font-bold">Andreu</span> Lorem ipsum dolor, sit amet
-          consectetur
+          <span className="font-bold">Andreu</span> {content}
         </p>
       </div>
       <div>
