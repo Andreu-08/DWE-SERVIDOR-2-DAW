@@ -39,8 +39,8 @@ Los componentes principales se encuentran organizados dentro de la carpeta `app/
 
 #### Perfil del usuario
 
-- **[`nav-bar.jsx`](./app/ui/profile_ui/nav-bar.jsx)**: Barra de navegación del perfil del usuario.
-- **[`nav-link.jsx`](./app/ui/profile_ui/nav-link.jsx)**: Componente de enlace dentro de la barra de navegación del perfil.
+- **[`nav-bar.jsx`](./app/ui/nav-bar.jsx)**: Barra de navegación del perfil del usuario.
+- **[`nav-link.jsx`](./app/ui/nav-link.jsx)**: Componente de enlace dentro de la barra de navegación del perfil.
 
 ---
 
