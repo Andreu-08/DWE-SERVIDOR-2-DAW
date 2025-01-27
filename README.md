@@ -8,7 +8,6 @@ Este repositorio contiene proyectos desarrollados como parte de la asignatura **
 
 1. [Laravel](#laravel)
 2. [Next.js](#nextjs)
-3. [Referencias básicas](#referencias-básicas)
 
 ---
 
