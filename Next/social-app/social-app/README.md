@@ -10,6 +10,8 @@ La aplicación tiene como objetivo simular las funcionalidades básicas de una r
 - ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) **React**: Biblioteca de JavaScript para construir interfaces de usuario.
 - ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) **Tailwind CSS**: Framework CSS para diseño rápido y eficiente.
 - ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) **Node.js**: Entorno de ejecución de JavaScript para desarrollo backend.
+- **Vercel Blob Storage**: Almacenamiento de imágenes y archivos multimedia.
+- **Vercel Postgres**: Base de datos relacional para almacenar la información de los posts.
 
 ---
 
@@ -30,12 +32,17 @@ La estructura principal del proyecto está organizada de la siguiente manera:
 
 ### Componentes
 
-Los componentes principales se encuentran organizados dentro de la carpeta `app/ui` y `app/profile_ui`. Aquí están los más relevantes:
+Los componentes principales se encuentran organizados dentro de la carpeta `app/ui`, `app/profile_ui` y `app/create_ui`. Aquí están los más relevantes:
 
 #### UI General
 
 - **[`post-list.jsx`](./app/ui/home_ui/post-list.jsx)**: Renderiza una lista de publicaciones.
 - **[`post.jsx`](./app/ui/home_ui/post.jsx)**: Representa una publicación individual.
+
+#### Creación de contenido
+
+- **[`image-selector.jsx`](./app/ui/create_ui/image-selector.jsx)**: Componente para previsualizar y seleccionar imágenes.
+- **[`action.jsx`](./app/lib/action.jsx)**: Maneja las acciones del servidor para crear posts.
 
 #### Perfil del usuario
 
@@ -70,6 +77,7 @@ Los componentes principales se encuentran organizados dentro de la carpeta `app/
 ## Funcionalidades principales
 
 - **Feed de publicaciones:** Muestra las publicaciones más recientes.
+- **Creación de posts:** Permite crear nuevas publicaciones con imágenes y texto.
 - **Perfil de usuario:** Visualiza los comentarios realizados y las publicaciones que recibieron "me gusta".
 - **Interacción social:** Permite realizar acciones como dar "me gusta" y comentar publicaciones.
 - **Búsqueda:** Facilita encontrar usuarios o publicaciones específicas.
