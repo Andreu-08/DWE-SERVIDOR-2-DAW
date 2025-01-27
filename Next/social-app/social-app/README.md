@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Social App
 
-## Getting Started
+La aplicación tiene como objetivo simular las funcionalidades básicas de una red social, permitiendo la interacción entre usuarios a través de comentarios, "likes" y la visualización de publicaciones.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologías utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white) **Next.js**: Framework de React para renderizado híbrido y desarrollo web moderno.
+- ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) **React**: Biblioteca de JavaScript para construir interfaces de usuario.
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) **Tailwind CSS**: Framework CSS para diseño rápido y eficiente.
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) **Node.js**: Entorno de ejecución de JavaScript para desarrollo backend.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estructura del proyecto
 
-## Learn More
+La estructura principal del proyecto está organizada de la siguiente manera:
 
-To learn more about Next.js, take a look at the following resources:
+### Rutas principales (pages)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **[`/`](./app/page.jsx)**: Página principal que muestra el feed de publicaciones.
+- **[`/create`](./app/create/page.jsx)**: Página para crear nuevas publicaciones.
+- **[`/profile`](./app/profile/page.jsx)**: Página de perfil del usuario, que incluye:
+  - **[`comments`](./app/profile/comments/page.jsx)**: Sección de comentarios.
+  - **[`likes`](./app/profile/likes/page.jsx)**: Sección de publicaciones con "me gusta".
+- **[`/search`](./app/search/page.jsx)**: Página para buscar usuarios o publicaciones.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### Componentes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Los componentes principales se encuentran organizados dentro de la carpeta `app/ui` y `app/profile_ui`. Aquí están los más relevantes:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### UI General
+
+- **[`post-list.jsx`](./app/ui/home_ui/post-list.jsx)**: Renderiza una lista de publicaciones.
+- **[`post.jsx`](./app/ui/home_ui/post.jsx)**: Representa una publicación individual.
+
+#### Perfil del usuario
+
+- **[`nav-bar.jsx`](./app/ui/profile_ui/nav-bar.jsx)**: Barra de navegación del perfil del usuario.
+- **[`nav-link.jsx`](./app/ui/profile_ui/nav-link.jsx)**: Componente de enlace dentro de la barra de navegación del perfil.
+
+---
+
+## Instalación y configuración
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/tu_usuario/social-app.git
+   cd social-app
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Ejecutar el proyecto:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Abrir en el navegador:**
+   Visita `http://localhost:3000` para ver la aplicación en funcionamiento.
+
+---
+
+## Funcionalidades principales
+
+- **Feed de publicaciones:** Muestra las publicaciones más recientes.
+- **Perfil de usuario:** Visualiza los comentarios realizados y las publicaciones que recibieron "me gusta".
+- **Interacción social:** Permite realizar acciones como dar "me gusta" y comentar publicaciones.
+- **Búsqueda:** Facilita encontrar usuarios o publicaciones específicas.
+
+---
+
+## Estilo y diseño
+
+Este proyecto utiliza **Tailwind CSS** para un diseño moderno y responsive, asegurando una experiencia de usuario fluida en diferentes dispositivos.
+
+---
+
+¡Explora la aplicación y aprende más sobre cómo se construyen aplicaciones sociales modernas con estas tecnologías!
+
