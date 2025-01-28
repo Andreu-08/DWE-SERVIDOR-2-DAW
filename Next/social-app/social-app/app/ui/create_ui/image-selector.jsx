@@ -14,7 +14,7 @@ export default () => {
 
   return (
     <>
-      <label htmlFor="imgpost" className="block mb-2 text-sm">
+      <label htmlFor="imgpost" className="block mb-2 text-sm cursor-pointer">
         <Image src={imgUrl} alt="preview" width={500} height={250} />
       </label>
       <input

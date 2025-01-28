@@ -36,7 +36,7 @@ export default ({content, url}) => {
         <Link href="#">Ver los 33 comentarios</Link>
       </div>
       <div>
-        <input className="w-full dark:bg-neutral-950 outline-0" type="text" placeholder="Add coment" />
+        <input className="w-full dark:bg-neutral-950 outline-0" type="text" placeholder="Add coment..." />
       </div>
     </div>
   );
