@@ -14,7 +14,7 @@ export async function createPost(formData) {
   //variables del contenido
   const content = formData.get("content");
   //guardar el post en la base de datos
-  await sql`INSERT INTO POST(content, url) 
+  await sql`INSERT INTO sa_posts(content, url) 
 
   VALUES(
     ${content}, 
