@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { HeartIcon, ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Like_Icon from "./like_button";
 
 
-export default ({content, url}) => {
+export default ({post_id, user_id, content, url}) => {
   return (
     <div className=" flex flex-col gap-1 max-w-md">
       <div className="flex gap-2">
@@ -22,7 +23,7 @@ export default ({content, url}) => {
       </div>
       <div>
         <div className="flex gap-2">
-          <HeartIcon className="h-6 w-6" />
+          <Like_Icon post_id={post_id} user_id={user_id} />
           <ChatBubbleLeftIcon className="h-6 w-6" />
         </div>
         <span>1234 Me gusta</span>
