@@ -6,9 +6,9 @@ import clsx from "clsx";
 import { useState } from "react";
 
 
-export default ({ post_id, user_id }) => {
+export default ({ post_id, user_id, isLikedInitial}) => {
     
-    let [isLiked, setIsLiked ]= useState(false);
+    let [isLiked, setIsLiked ]= useState(isLikedInitial);
     
     function togleLike() {
 
