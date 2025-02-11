@@ -6,19 +6,19 @@ import clsx from "clsx";
 import { useState } from "react";
 
 
-export default ({ post_id, user_id, isLikedInitial}) => {
+export default ({ post_id, user_id, isLikedInitial }) => {
     
     let [isLiked, setIsLiked ]= useState(isLikedInitial);
     
-    function togleLike() {
+    async function togleLike() {
 
         if(isLiked){
-            removeLike(post_id, user_id)
+            await removeLike(post_id, user_id)
             setIsLiked(false)
             
         }else{
 
-            insertLike(post_id, user_id)
+            await insertLike(post_id, user_id)
             setIsLiked(true)
         }
     }
