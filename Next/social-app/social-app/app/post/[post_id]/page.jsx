@@ -12,7 +12,7 @@ export default async ({params}) => {
 
     return (
         <>
-        <div className="flex flex-col grow gap-16 mt-16 items-center">
+        <div className="flex flex-col items-center gap-8 mx-auto my-8">
 
             <Post 
                 user_id = {user_id}
@@ -23,6 +23,7 @@ export default async ({params}) => {
                 picture={post.picture}
                 username = {post.username}
                 num_likes={post.num_likes}
+                num_comments={post.num_comments} 
             />
         </div>
         </>

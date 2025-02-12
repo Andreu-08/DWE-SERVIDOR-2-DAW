@@ -26,7 +26,7 @@ export default ({ post_id, user_id, isLikedInitial }) => {
   return (
     <HeartIcon
       onClick={togleLike}
-      className={clsx("h-6 w-6", { "text-red-500": isLiked })}
+      className={clsx("h-6 w-6 cursor-pointer", { "text-red-500": isLiked })}
     />
   );
 };
